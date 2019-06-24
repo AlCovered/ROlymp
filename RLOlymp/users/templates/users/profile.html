@@ -2,6 +2,7 @@
 
 {% block main_section %}
 <div class="container">
-    {{ user.username }}
+    <h2>{{ request.user.first_name }} {{ request.user.last_name }}</h2>
+    <img src="{{ user.profile.photo.url }}" alt="" class="img-fluid" style="border-radius: 15px;">
 </div>
 {% endblock main_section %}

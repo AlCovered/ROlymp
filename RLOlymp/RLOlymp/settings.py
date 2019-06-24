@@ -130,3 +130,9 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'sign_in_users_url'
+
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
+CSRF_COOKIE_SECURE = True
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
