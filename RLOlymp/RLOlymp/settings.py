@@ -136,3 +136,5 @@ CSRF_COOKIE_SECURE = True
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
+
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
