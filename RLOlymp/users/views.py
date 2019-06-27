@@ -15,7 +15,7 @@ class Home(View):
             'title': 'Home - RLOlymp'
         }
 
-        return render(request, 'main.html', data)
+        return render(request, 'index.html', data)
 
 class Register(View):
     def get(self, request):
