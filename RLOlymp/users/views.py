@@ -6,16 +6,29 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse
 from django.contrib.auth import views as AuthView
+from django.contrib.auth.models import User
 
 from .forms import UserRegistration
+from .models import *
 
-class Home(View):
+# def get_client_ip(request):
+#     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+#     if x_forwarded_for:
+#         ip = x_forwarded_for.split(',')[0]
+#     else:
+#         ip = request.META.get('REMOTE_ADDR')
+#     return ip
+
+class UserList(View):
     def get(self, request):
+        users = User.objects.all()
+
         data = {
-            'title': 'Home - RLOlymp'
+            'title': 'Users - RLOlymp',
+            'users': users
         }
 
-        return render(request, 'index.html', data)
+        return render(request, 'users/users_list.html', data)
 
 class Register(View):
     def get(self, request):
@@ -48,15 +61,28 @@ class Register(View):
 
         return render(request, 'users/registration.html', data)
 
-class Profile(View):
+class ProfileView(View):
     def get(self, request):
         data = {
-            'title': 'Profile - RLOlymp'
+            'title': 'Profile - RLOlymp',
+        }
+
+        return render(request, 'users/profile.html', data)
+
+    def post(self, request):
+        if request.POST.get('Next') == 'Next':
+            user_id = request.user.id
+            user = Profile.objects.get(id=user_id)
+
+            user.solved_problems += 1
+            user.save()
+
+        data = {
+            'title': 'Profile - RLOlymp',
         }
 
         return render(request, 'users/profile.html', data)
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        return super(Profile, self).dispatch(request, *args, **kwargs)
-    
+        return super(ProfileView, self).dispatch(request, *args, **kwargs)

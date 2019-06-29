@@ -1,8 +1,26 @@
 {% extends 'main.html' %}
+{% load crispy_forms_tags %}
 
 {% block main_section %}
 <div class="container">
-    <h2>{{ request.user.first_name }} {{ request.user.last_name }}</h2>
-    <img src="{{ user.profile.photo.url }}" alt="" class="img-fluid" style="border-radius: 15px;">
+    <div class="row">
+        <div class="col-3">
+            {% if user.profile.photo %}
+            <img src="{{ user.profile.photo.url }}" class="img-fluid">
+            {% else %}
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="avatar" style="display: block; max-width: 100%; max-height: 100%;" class="img-fluid">
+            {% endif %}
+        </div>
+        <div class="col-9">
+            <h2>{{ request.user.first_name }} {{ request.user.last_name }}</h2>
+            <p>Решенных задач: <b>{{ user.profile.solved_problems }}</b></p>
+            <p>Был зарегистрирован: <b>{{ request.user.date_joined }}</b></p>
+
+            <form method='POST'>
+                {% csrf_token %}
+                <button type="submit" value="Next" name="Next" class="btn btn-outline-danger">Add</button>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock main_section %}
