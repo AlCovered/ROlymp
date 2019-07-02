@@ -12,14 +12,6 @@ from django.contrib.auth.forms import PasswordChangeForm
 from .forms import *
 from .models import *
 
-# def get_client_ip(request):
-#     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-#     if x_forwarded_for:
-#         ip = x_forwarded_for.split(',')[0]
-#     else:
-#         ip = request.META.get('REMOTE_ADDR')
-#     return ip
-
 class UserList(View):
     def get(self, request):
         users = User.objects.all()
@@ -76,6 +68,13 @@ class ProfileView(View):
             user = Profile.objects.get(id=user_id)
 
             user.solved_problems += 1
+            user.save()
+
+        if request.POST.get('Add') == 'Add':
+            user_id = request.user.id
+            user = Profile.objects.get(id=user_id)
+
+            user.rank += 5
             user.save()
 
         data = {

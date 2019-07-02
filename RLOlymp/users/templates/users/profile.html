@@ -12,19 +12,29 @@
             {% endif %}
         </div>
         <div class="col-9">
-            <h2>{{ request.user.first_name }} {{ request.user.last_name }}</h2>
-            <p>Решенных задач: <b>{{ user.profile.solved_problems }}</b></p>
-            <p>Был зарегистрирован: <b>{{ request.user.date_joined }}</b></p>
-            <p>Почта: <b>{{ request.user.email }}</b></p>
+            <h2>{{ request.user.first_name }} {{ request.user.last_name }}</h2> 
 
             <div class="row ml-0">
-                <form method='POST'>
+                <p>Решенных задач: <b>{{ user.profile.solved_problems }}</b></p>
+                <p class="ml-2">Был зарегистрирован: <b>{{ request.user.date_joined }}</b></p>
+                <p class="ml-2">Почта: <b>{{ request.user.email }}</b></p>
+                <p class="ml-2">Ранг: <b>{{ user.profile.rank }}</b></p>
+                <p class="ml-2">Отправки: <b>{{ user.profile.shipments }}</b></p>
+            </div>
+
+            <div class="row ml-0">
+                <!-- <form method='POST'>
                     {% csrf_token %}
                     <button type="submit" value="Next" name="Next" class="btn btn-outline-danger">Добавить</button>
                 </form>
 
-                <a href="{% url 'profile_update_users_url' %}" class="btn btn-outline-success ml-2">Обновить</a>
-                <a href="{% url 'profile_delete_users_url' username=request.user.username %}" class="btn btn-outline-primary ml-2">Delete</a>
+                <form method='POST'>
+                    {% csrf_token %}
+                    <button type="submit" value="Add" name="Add" class="btn btn-outline-secondary ml-2">Добавить</button>
+                </form> -->
+
+                <a href="{% url 'profile_update_users_url' %}" class="btn btn-outline-success">Обновить</a>
+                <a href="{% url 'profile_delete_users_url' username=request.user.username %}" class="btn btn-outline-primary ml-2">Удалить</a>
             </div>
         </div>
     </div>
