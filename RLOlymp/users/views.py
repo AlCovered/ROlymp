@@ -125,7 +125,7 @@ class UpdatePassword(View):
         return render(request, 'users/update_password.html', data)
 
     def post(self, request):
-        form = PasswordChangeForm(data=request.POST ,user=request.user)
+        form = PasswordChangeForm(data=request.POST, user=request.user)
 
         if form.is_valid():
             form.save()
