@@ -1,10 +1,10 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 .DS_Store
-*/migrations/*
 *.py[cod]
 *$py.class
 *.pyc
+*/migrations/*
 
 # C extensions
 *.so
@@ -28,6 +28,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+.vscode/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
