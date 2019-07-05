@@ -158,3 +158,31 @@ class DeleteUser(View):
         user_del.delete()
 
         return redirect(reverse('home'))
+
+class EditImageUser(View):
+    def get(self, request):
+        user_get = Profile.objects.get(user=request.user)
+        form = EditImageForm(instance=user_get)
+
+        data = {
+            'title': 'Edit Profile - RLOlymp',
+            'form': form
+        }
+
+        return render(request, 'users/edit_profile.html', data)
+
+    def post(self, request):
+        user_get = Profile.objects.get(user=request.user)
+        form = EditImageForm(request.POST, request.FILES, instance=user_get)
+
+        if form.is_valid():
+            form.save()
+            
+            return redirect('profile_users_url')
+
+        data = {
+            'title': 'Edit Profile - RLOlymp',
+            'form': form
+        }
+
+        return render(request, 'users/edit_profile.html', data)

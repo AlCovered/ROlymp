@@ -16,3 +16,8 @@ class UpdateProfileForm(UserChangeForm):
     class Meta:
         model = User
         fields = ['email', 'first_name', 'last_name', 'password']
+
+class EditImageForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['photo']

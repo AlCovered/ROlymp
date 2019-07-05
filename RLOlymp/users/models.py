@@ -8,7 +8,6 @@ class Profile(models.Model):
     solved_problems = models.IntegerField(default=0)
     shipments = models.IntegerField(default=0)
     rank = models.IntegerField(default=0)
-    social_information = models.URLField(max_length=200, default='')
 
     def __str__(self):
         return f'{self.user.username}'

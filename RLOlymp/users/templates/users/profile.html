@@ -34,6 +34,8 @@
                 </form> -->
 
                 <a href="{% url 'profile_update_users_url' %}" class="btn btn-outline-success">Обновить информацию</a>
+                <a href="{% url 'update_password_users_url' %}" class="btn btn-outline-secondary ml-2">Сменить пароль</a>
+                <a href="{% url 'profile_image_users_url' %}" class="btn btn-outline-danger ml-2">Обновить фото</a>
                 <a href="{% url 'profile_delete_users_url' username=request.user.username %}" class="btn btn-outline-primary ml-2">Удалить пользователя</a>
             </div>
         </div>
