@@ -1,0 +1,28 @@
+body {
+    font-family: "Helvetica Neue", sans-serif;
+}
+
+#showcase {
+    background: top center/cover no-repeat;
+    min-height: 700px;
+    max-height: 700px;
+    position: relative;
+    width: 100%;
+}
+
+#showcase #where_i_am {
+    font-size: 1.5rem;
+    border-radius: 9px;
+}
+
+.img-wrap {
+    position: relative;
+}
+  
+.img-wrap #header {
+    position: absolute;
+    left: 700px;
+    bottom: 200px;
+    width: 100%;
+    z-index: 2;
+}

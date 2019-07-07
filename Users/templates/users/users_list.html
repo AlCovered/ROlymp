@@ -1,0 +1,28 @@
+{% extends 'main.html' %}
+
+{% block main_section %}
+<div class="container">
+    <div class="row">
+        {% for user_1 in users %}
+        <div class="col-12">
+            <div class="row no-gutters border overflow-hidden flex-md-row mt-2 h-md-250 position-relative">
+                <div class="col p-3 d-flex flex-column position-static">
+                    {% if user_1.is_superuser %}
+                    <strong class="d-inline-block mb-2 text-success">Superuser</strong>
+                    {% endif %}
+                    <h4 class="mb-0">{{ user_1.first_name }} {{ user_1.last_name }}</h3>
+                    {% if user_1.last_login %}
+                    <div class="mb-1 text-muted">{{ user_1.last_login|date:"d.m.Y H:i" }}</div>
+                    {% endif %}
+                    <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                </div>
+
+                <div class="col-auto d-none d-lg-block">
+                    <img src="{{ user_1.profile.photo.url }}" class="img-fluid bd-placeholder-img" width="200" height="500" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" style="border-radius: 3px;">
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock main_section %}
