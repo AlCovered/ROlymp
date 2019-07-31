@@ -14,7 +14,8 @@ from .models import *
 
 
 class UserList(View):
-    def get(self, request):
+    @staticmethod
+    def get(request):
         users = User.objects.all()
 
         data = {
@@ -60,14 +61,16 @@ class Register(View):
 
 
 class ProfileView(View):
-    def get(self, request):
+    @staticmethod
+    def get(request):
         data = {
             'title': 'Profile - RLOlymp',
         }
 
         return render(request, 'users/profile.html', data)
 
-    def post(self, request):
+    @staticmethod
+    def post(request):
         if request.POST.get('Next') == 'Next':
             user_id = request.user.id
             user = Profile.objects.get(id=user_id)
@@ -94,7 +97,8 @@ class ProfileView(View):
 
 
 class UpdateProfile(View):
-    def get(self, request):
+    @staticmethod
+    def get(request):
         form = UpdateProfileForm(instance=request.user)
 
         data = {
@@ -104,7 +108,8 @@ class UpdateProfile(View):
 
         return render(request, 'users/update_profile.html', data)
 
-    def post(self, request):
+    @staticmethod
+    def post(request):
         form = UpdateProfileForm(request.POST, instance=request.user)
 
         if form.is_valid():
@@ -121,7 +126,8 @@ class UpdateProfile(View):
 
 
 class UpdatePassword(View):
-    def get(self, request):
+    @staticmethod
+    def get(request):
         form = PasswordChangeForm(user=request.user)
 
         data = {
@@ -131,7 +137,8 @@ class UpdatePassword(View):
 
         return render(request, 'users/update_password.html', data)
 
-    def post(self, request):
+    @staticmethod
+    def post(request):
         form = PasswordChangeForm(data=request.POST, user=request.user)
 
         if form.is_valid():
@@ -151,7 +158,8 @@ class UpdatePassword(View):
 
 
 class DeleteUser(View):
-    def get(self, request, username):
+    @staticmethod
+    def get(request, username):
         user_del = User.objects.get(username__iexact=username)
 
         data = {
@@ -161,7 +169,8 @@ class DeleteUser(View):
 
         return render(request, 'users/delete_user.html', data)
 
-    def post(self, request, username):
+    @staticmethod
+    def post(request, username):
         user_del = User.objects.get(username__iexact=username)
         user_del.delete()
 
@@ -169,7 +178,8 @@ class DeleteUser(View):
 
 
 class EditImageUser(View):
-    def get(self, request):
+    @staticmethod
+    def get(request):
         user_get = Profile.objects.get(user=request.user)
         form = EditImageForm(instance=user_get)
 
@@ -180,7 +190,8 @@ class EditImageUser(View):
 
         return render(request, 'users/edit_profile.html', data)
 
-    def post(self, request):
+    @staticmethod
+    def post(request):
         user_get = Profile.objects.get(user=request.user)
         form = EditImageForm(request.POST, request.FILES, instance=user_get)
 

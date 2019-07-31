@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 
 from .models import *
 
+
 class UserRegistration(UserCreationForm):
     email = forms.EmailField()
 
@@ -12,10 +13,12 @@ class UserRegistration(UserCreationForm):
         model = User
         fields = ['email', 'first_name', 'last_name', 'username', 'password1', 'password2']
 
+
 class UpdateProfileForm(UserChangeForm):
     class Meta:
         model = User
         fields = ['email', 'first_name', 'last_name', 'password']
+
 
 class EditImageForm(forms.ModelForm):
     class Meta:
