@@ -26,7 +26,8 @@ class UserList(View):
 
 
 class Register(View):
-    def get(self, request):
+    @staticmethod
+    def get(request):
         form = UserRegistration()
 
         data = {
@@ -36,7 +37,8 @@ class Register(View):
 
         return render(request, 'users/registration.html', data)
 
-    def post(self, request):
+    @staticmethod
+    def post(request):
         form = UserRegistration(request.POST)
 
         if form.is_valid():
