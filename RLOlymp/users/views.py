@@ -12,6 +12,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from .forms import *
 from .models import *
 
+
 class UserList(View):
     def get(self, request):
         users = User.objects.all()
@@ -22,6 +23,7 @@ class UserList(View):
         }
 
         return render(request, 'users/users_list.html', data)
+
 
 class Register(View):
     def get(self, request):
@@ -53,6 +55,7 @@ class Register(View):
         }
 
         return render(request, 'users/registration.html', data)
+
 
 class ProfileView(View):
     def get(self, request):
@@ -87,6 +90,7 @@ class ProfileView(View):
     def dispatch(self, request, *args, **kwargs):
         return super(ProfileView, self).dispatch(request, *args, **kwargs)
 
+
 class UpdateProfile(View):
     def get(self, request):
         form = UpdateProfileForm(instance=request.user)
@@ -112,6 +116,7 @@ class UpdateProfile(View):
         }
 
         return render(request, 'users/update_profile.html', data)
+
 
 class UpdatePassword(View):
     def get(self, request):
@@ -142,6 +147,7 @@ class UpdatePassword(View):
 
         return render(request, 'users/update_password.html', data)
 
+
 class DeleteUser(View):
     def get(self, request, username):
         user_del = User.objects.get(username__iexact=username)
@@ -158,6 +164,7 @@ class DeleteUser(View):
         user_del.delete()
 
         return redirect(reverse('home'))
+
 
 class EditImageUser(View):
     def get(self, request):
@@ -177,8 +184,9 @@ class EditImageUser(View):
 
         if form.is_valid():
             form.save()
-            
-            return redirect('profile_users_url')
+
+            h = redirect('profile_users_url')
+            return h
 
         data = {
             'title': 'Edit Profile - RLOlymp',
