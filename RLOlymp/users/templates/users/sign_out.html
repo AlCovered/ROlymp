@@ -3,9 +3,14 @@
 
 {% block main_section %}
 <div class="container">
-    <h4>Вы успешно вышли из аккаунта</h4>
+    <div class="card shadow-sm mt-3">
+        <div class="card-body">
+            <h4>Вы успешно вышли из аккаунта</h4>
 
-    <a href="{% url 'home' %}" class="text-danger">Вернуться на главную страницу...</a>
-    <a href="{% url 'sign_in_users_url' %}" class="text-warning">Войти еще раз</a>
+            <hr>
+            <a href="{% url 'home' %}" class="text-danger">Вернуться на главную страницу...</a>
+            <a href="{% url 'sign_in_users_url' %}" class="text-warning">Войти еще раз</a>
+        </div>
+    </div>
 </div>
 {% endblock main_section %}

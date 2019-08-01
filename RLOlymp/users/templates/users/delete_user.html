@@ -2,14 +2,19 @@
 
 {% block main_section %}
 <div class="container">
-    <form action="{% url 'profile_delete_users_url' username=request.user.username %}" method="POST">
-        {% csrf_token %}
+    <div class="card shadow-sm mt-3">
+        <div class="card-body">
+            <form action="{% url 'profile_delete_users_url' username=request.user.username %}" method="POST">
+                {% csrf_token %}
 
-        <h4>Are you sure that you want to delete this user?</h4>
-        <div class="btn-group">
-            <button type="submit" class="btn btn-outline-danger">Delete</button>
-            <a href="{% url 'profile_users_url' %}" class="btn btn-outline-primary">Cancel</a>
+                <h4>Are you sure that you want to delete this user?</h4>
+                <hr>
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-outline-danger shadow-sm">Delete</button>
+                    <a href="{% url 'profile_users_url' %}" class="btn btn-outline-primary shadow-sm">Cancel</a>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 {% endblock main_section %}

@@ -3,24 +3,27 @@
 
 {% block main_section %}
 <div class="container">
+    <div class="card shadow-sm mt-3">
+        <div class="card-body">
+            {% if messages %}
+            {% for mess in messages %}
+            <div class="alert alert-success mt-4">
+                {{ mess }}
+            </div>
+            {% endfor %}
+            {% endif %}
 
-    {% if messages %}
-    {% for mess in messages %}
-    <div class="alert alert-success mt-4">
-        {{ mess }}
-    </div>
-    {% endfor %}
-    {% endif %}
+            <h4>Зарегистрирация на сайте</h4>
 
-    <h4>Зарегистрирация на сайте</h4>
+            <div class="form-section">
+                <form method="POST">
+                    {% csrf_token %}
 
-    <div class="form-section">
-        <form method="POST">
-            {% csrf_token %}
-
-            {{ form|crispy }}
-            <button type="submit" class="btn btn-outline-primary">Зарегистрироваться</button>
-        </form>
+                    {{ form|crispy }}
+                    <button type="submit" class="btn btn-outline-primary shadow-sm">Зарегистрироваться</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock main_section %}

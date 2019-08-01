@@ -3,6 +3,12 @@
 
 {% block main_section %}
 <div class="container">
+    <div class="card shadow-sm mt-3">
+        <div class="card-body">
+            <h3><a href="{% url 'users_list_url' %}" class="text-secondary" id="change-name" onmouseover="ChangeName()" onmouseout="BackToPast()">Пользователь</a> {{ request.user.username }}</h3>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-3">
             {% if user.profile.photo %}
@@ -18,10 +24,10 @@
                         <h2>{{ request.user.first_name }} {{ request.user.last_name }}</h2>
                         <hr>
                         <p>Решенных задач: <b>{{ user.profile.solved_problems }}</b></p>
-                        <p class="ml-2">Был зарегистрирован: <b>{{ request.user.date_joined|date:"d.m.Y H:i" }}</b></p>
-                        <p class="ml-2">Почта: <b>{{ request.user.email }}</b></p>
-                        <p class="ml-2">Ранг: <b>{{ user.profile.rank }}</b></p>
-                        <p class="ml-2">Отправки: <b>{{ user.profile.shipments }}</b></p>
+                        <p>Был зарегистрирован: <b>{{ request.user.date_joined|date:"d.m.Y H:i" }}</b></p>
+                        <p>Почта: <b>{{ request.user.email }}</b></p>
+                        <p>Ранг: <b>{{ user.profile.rank }}</b></p>
+                        <p>Отправки: <b>{{ user.profile.shipments }}</b></p>
                     </div>
                 </div>
             </div>
