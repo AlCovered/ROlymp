@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+
+
+{% block main_section %}
+<div class="container">
+    <div class="card shadow-sm mt-3">
+        <div class="card-body">
+            <h4>Вы успешно вышли из аккаунта</h4>
+
+            <hr>
+            <a href="{% url 'home' %}" class="text-danger">Вернуться на главную страницу...</a>
+            <a href="{% url 'sign_in_users_url' %}" class="text-warning">Войти еще раз</a>
+        </div>
+    </div>
+</div>
+{% endblock main_section %}

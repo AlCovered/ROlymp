@@ -1,0 +1,54 @@
+{% extends 'main.html' %}
+{% load crispy_forms_tags %}
+
+{% block main_section %}
+<div class="container">
+    <div class="card shadow-sm mt-3">
+        <div class="card-body">
+            <h3><a href="{% url 'users_list_url' %}" class="text-secondary" id="change-name" onmouseover="ChangeName()" onmouseout="BackToPast()">Пользователь</a> {{ request.user.username }}</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-3">
+            {% if user.profile.photo %}
+            <img src="{{ user.profile.photo.url }}" class="img-fluid mt-3" style="border-radius: 3px;">
+            {% else %}
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="avatar" style="display: block; max-width: 100%; max-height: 100%;" class="img-fluid">
+            {% endif %}
+        </div>
+        <div class="col-9">
+            <div class="row ml-0">
+                <div class="card mb-4 shadow-sm mt-3" style="width: 98.2%">
+                    <div class="card-body">
+                        <h2>{{ request.user.first_name }} {{ request.user.last_name }}</h2>
+                        <hr>
+                        <p>Решенных задач: <b>{{ user.profile.solved_problems }}</b></p>
+                        <p>Был зарегистрирован: <b>{{ request.user.date_joined|date:"d.m.Y H:i" }}</b></p>
+                        <p>Почта: <b>{{ request.user.email }}</b></p>
+                        <p>Ранг: <b>{{ user.profile.rank }}</b></p>
+                        <p>Отправки: <b>{{ user.profile.shipments }}</b></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row ml-0">
+                <!-- <form method='POST'>
+                    {% csrf_token %}
+                    <button type="submit" value="Next" name="Next" class="btn btn-outline-danger">Добавить</button>
+                </form>
+
+                <form method='POST'>
+                    {% csrf_token %}
+                    <button type="submit" value="Add" name="Add" class="btn btn-outline-secondary ml-2">Добавить</button>
+                </form> -->
+
+                <a href="{% url 'profile_update_users_url' %}" class="btn btn-outline-success shadow-sm">Обновить информацию</a>
+                <a href="{% url 'update_password_users_url' %}" class="btn btn-outline-secondary ml-2 shadow-sm">Сменить пароль</a>
+                <a href="{% url 'profile_image_users_url' %}" class="btn btn-outline-danger ml-2 shadow-sm">Обновить фото</a>
+                <a href="{% url 'profile_delete_users_url' username=request.user.username %}" class="btn btn-outline-primary ml-2 shadow-sm">Удалить пользователя</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main_section %}
