@@ -18,12 +18,12 @@ class UserList(View):
     def get(request):
         users = User.objects.all()
 
-        data = {
+        context = {
             'title': 'Users - RLOlymp',
             'users': users
         }
 
-        return render(request, 'users/users_list.html', data)
+        return render(request, 'users/users_list.html', context)
 
 
 class Register(View):
@@ -31,12 +31,12 @@ class Register(View):
     def get(request):
         form = UserRegistration()
 
-        data = {
+        context = {
             'title': 'Registraion - RLOlymp',
             'form': form
         }
 
-        return render(request, 'users/registration.html', data)
+        return render(request, 'users/registration.html', context)
 
     @staticmethod
     def post(request):
@@ -50,24 +50,24 @@ class Register(View):
             new_user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
             login(request, new_user)
 
-            return redirect('register_url')
+            return redirect('profile_users_url')
 
-        data = {
+        context = {
             'title': 'Registration - RLOlymp',
             'form': form
         }
 
-        return render(request, 'users/registration.html', data)
+        return render(request, 'users/registration.html', context)
 
 
 class ProfileView(View):
     @staticmethod
     def get(request):
-        data = {
+        context = {
             'title': 'Profile - RLOlymp',
         }
 
-        return render(request, 'users/profile.html', data)
+        return render(request, 'users/profile.html', context)
 
     @staticmethod
     def post(request):
@@ -85,11 +85,11 @@ class ProfileView(View):
             user.rank += 5
             user.save()
 
-        data = {
+        context = {
             'title': 'Profile - RLOlymp',
         }
 
-        return render(request, 'users/profile.html', data)
+        return render(request, 'users/profile.html', context)
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -101,12 +101,12 @@ class UpdateProfile(View):
     def get(request):
         form = UpdateProfileForm(instance=request.user)
 
-        data = {
+        context = {
             'title': 'Update Profile - RLOlymp',
             'form': form
         }
 
-        return render(request, 'users/update_profile.html', data)
+        return render(request, 'users/update_profile.html', context)
 
     @staticmethod
     def post(request):
@@ -117,12 +117,12 @@ class UpdateProfile(View):
 
             return redirect('profile_users_url')
 
-        data = {
+        context = {
             'title': 'Update Profile - RLOlymp',
             'form': form
         }
 
-        return render(request, 'users/update_profile.html', data)
+        return render(request, 'users/update_profile.html', context)
 
 
 class UpdatePassword(View):
@@ -130,12 +130,12 @@ class UpdatePassword(View):
     def get(request):
         form = PasswordChangeForm(user=request.user)
 
-        data = {
+        context = {
             'title': 'Update Password - RLOlymp',
             'form': form
         }
 
-        return render(request, 'users/update_password.html', data)
+        return render(request, 'users/update_password.html', context)
 
     @staticmethod
     def post(request):
@@ -149,12 +149,12 @@ class UpdatePassword(View):
         else:
             return redirect('update_password_users_url')
 
-        data = {
+        context = {
             'title': 'Update Password - RLOlymp',
-            'form': form
+            'form': form,
         }
 
-        return render(request, 'users/update_password.html', data)
+        return render(request, 'users/update_password.html', context)
 
 
 class DeleteUser(View):
@@ -162,12 +162,12 @@ class DeleteUser(View):
     def get(request, username):
         user_del = User.objects.get(username__iexact=username)
 
-        data = {
+        context = {
             'title': 'Delete User - RLOlymp',
             'user_del': user_del
         }
 
-        return render(request, 'users/delete_user.html', data)
+        return render(request, 'users/delete_user.html', context)
 
     @staticmethod
     def post(request, username):
@@ -183,12 +183,12 @@ class EditImageUser(View):
         user_get = Profile.objects.get(user=request.user)
         form = EditImageForm(instance=user_get)
 
-        data = {
+        context = {
             'title': 'Edit Profile - RLOlymp',
             'form': form
         }
 
-        return render(request, 'users/edit_profile.html', data)
+        return render(request, 'users/edit_profile.html', context)
 
     @staticmethod
     def post(request):
@@ -201,9 +201,9 @@ class EditImageUser(View):
             h = redirect('profile_users_url')
             return h
 
-        data = {
+        context = {
             'title': 'Edit Profile - RLOlymp',
             'form': form
         }
 
-        return render(request, 'users/edit_profile.html', data)
+        return render(request, 'users/edit_profile.html', context)
