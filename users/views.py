@@ -13,64 +13,42 @@ from .forms import *
 from .models import *
 
 
-class UserList(View):
-    @staticmethod
-    def get(request):
-        users = User.objects.all()
+def user_list(request):
+    users = User.objects.order_by('first_name')
 
-        context = {
-            'title': 'Users - RLOlymp',
-            'users': users
-        }
-
-        return render(request, 'users/users_list.html', context)
+    context = {'title': 'Users - RLOlymp', 'users': users}
+    return render(request, 'users/users_list.html', context)
 
 
 class Register(View):
-    @staticmethod
-    def get(request):
+    def get(self, request):
         form = UserRegistration()
 
-        context = {
-            'title': 'Registraion - RLOlymp',
-            'form': form
-        }
-
+        context = {'title': 'Registration - RLOlymp', 'form': form}
         return render(request, 'users/registration.html', context)
 
-    @staticmethod
-    def post(request):
+    def post(self, request):
         form = UserRegistration(request.POST)
 
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'User {username} successfuly registred')
+            messages.success(request, f'User {username} successfully registered')
 
             new_user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
             login(request, new_user)
-
             return redirect('profile_users_url')
 
-        context = {
-            'title': 'Registration - RLOlymp',
-            'form': form
-        }
-
+        context = {'title': 'Registration - RLOlymp','form': form}
         return render(request, 'users/registration.html', context)
 
 
 class ProfileView(View):
-    @staticmethod
-    def get(request):
-        context = {
-            'title': 'Profile - RLOlymp',
-        }
-
+    def get(self, request):
+        context = {'title': 'Profile - RLOlymp',}
         return render(request, 'users/profile.html', context)
 
-    @staticmethod
-    def post(request):
+    def post(self, request):
         if request.POST.get('Next') == 'Next':
             user_id = request.user.id
             user = Profile.objects.get(id=user_id)
@@ -85,10 +63,7 @@ class ProfileView(View):
             user.rank += 5
             user.save()
 
-        context = {
-            'title': 'Profile - RLOlymp',
-        }
-
+        context = {'title': 'Profile - RLOlymp'}
         return render(request, 'users/profile.html', context)
 
     @method_decorator(login_required)
@@ -97,80 +72,52 @@ class ProfileView(View):
 
 
 class UpdateProfile(View):
-    @staticmethod
-    def get(request):
+    def get(self, request):
         form = UpdateProfileForm(instance=request.user)
 
-        context = {
-            'title': 'Update Profile - RLOlymp',
-            'form': form
-        }
-
+        context = {'title': 'Update Profile - RLOlymp', 'form': form}
         return render(request, 'users/update_profile.html', context)
 
-    @staticmethod
-    def post(request):
+    def post(self, request):
         form = UpdateProfileForm(request.POST, instance=request.user)
 
         if form.is_valid():
             form.save()
-
             return redirect('profile_users_url')
 
-        context = {
-            'title': 'Update Profile - RLOlymp',
-            'form': form
-        }
-
+        context = {'title': 'Update Profile - RLOlymp', 'form': form}
         return render(request, 'users/update_profile.html', context)
 
 
 class UpdatePassword(View):
-    @staticmethod
-    def get(request):
+    def get(self, request):
         form = PasswordChangeForm(user=request.user)
 
-        context = {
-            'title': 'Update Password - RLOlymp',
-            'form': form
-        }
-
+        context = {'title': 'Update Password - RLOlymp', 'form': form}
         return render(request, 'users/update_password.html', context)
 
-    @staticmethod
-    def post(request):
+    def post(self, request):
         form = PasswordChangeForm(data=request.POST, user=request.user)
 
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
-
             return redirect('profile_users_url')
         else:
             return redirect('update_password_users_url')
 
-        context = {
-            'title': 'Update Password - RLOlymp',
-            'form': form,
-        }
-
+        context = {'title': 'Update Password - RLOlymp', 'form': form}
         return render(request, 'users/update_password.html', context)
 
 
 class DeleteUser(View):
-    @staticmethod
-    def get(request, username):
+    def get(self, request, username):
         user_del = User.objects.get(username__iexact=username)
 
-        context = {
-            'title': 'Delete User - RLOlymp',
-            'user_del': user_del
-        }
-
+        context = {'title': 'Delete User - RLOlymp', 'user_del': user_del}
         return render(request, 'users/delete_user.html', context)
 
-    @staticmethod
-    def post(request, username):
+    def post(self, request, username):
         user_del = User.objects.get(username__iexact=username)
         user_del.delete()
 
@@ -178,32 +125,20 @@ class DeleteUser(View):
 
 
 class EditImageUser(View):
-    @staticmethod
-    def get(request):
+    def get(self, request):
         user_get = Profile.objects.get(user=request.user)
         form = EditImageForm(instance=user_get)
 
-        context = {
-            'title': 'Edit Profile - RLOlymp',
-            'form': form
-        }
-
+        context = {'title': 'Edit Profile - RLOlymp', 'form': form}
         return render(request, 'users/edit_profile.html', context)
 
-    @staticmethod
-    def post(request):
+    def post(self, request):
         user_get = Profile.objects.get(user=request.user)
         form = EditImageForm(request.POST, request.FILES, instance=user_get)
 
         if form.is_valid():
             form.save()
+            return redirect('profile_users_url')
 
-            h = redirect('profile_users_url')
-            return h
-
-        context = {
-            'title': 'Edit Profile - RLOlymp',
-            'form': form
-        }
-
+        context = {'title': 'Edit Profile - RLOlymp', 'form': form}
         return render(request, 'users/edit_profile.html', context)
