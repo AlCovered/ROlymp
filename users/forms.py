@@ -31,7 +31,7 @@ class UserRegistration(UserCreationForm):
         new_email = self.cleaned_data['email'].lower()
 
         if (new_email.startswith('example')) or (not (new_email.endswith('ru') or new_email.endswith('com') or new_email.endswith('net') or new_email.endswith('ua'))) or (not('gmail' in new_email or 'email' in new_email or 'mail' in new_email or 'ukr' in new_email)):
-            raise ValidationError('Введите корректный адрес электронной почты')
+            raise ValidationError('Введите корректный адрес электронной почты, желательно свой...')
 
         return new_email
 

@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+
+{% block main_section %}
+<div class="container">
+    <div class="row mt-3">
+        {% for cond in condition %}
+        <div class="col-12">
+            <div class="row no-gutters border overflow-hidden flex-md-row mb-1 h-md-250 position-relative shadow-sm">
+                <div class="col p-3 d-flex flex-column position-static">
+                    <h4 class="mb-0"><a href="{% url 'problem_url' some_id=cond.id %}">{{ cond.title }}</a></h4>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock main_section %}

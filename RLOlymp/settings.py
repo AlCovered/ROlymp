@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
+    'problems.apps.ProblemsConfig',
 ]
 
 MIDDLEWARE = [
@@ -86,12 +87,12 @@ WSGI_APPLICATION = 'RLOlymp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'rlolymp',
-        'USER': 'root',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'django',
+        'USER': 'postgres',
         'PASSWORD': 'domestosroot50',
-        'HOST': 'localhost',
-        'PORT': 3306
+        'HOST': '',
+        'PORT': '5432',
     }
 }
 
