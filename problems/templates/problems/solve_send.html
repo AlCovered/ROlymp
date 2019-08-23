@@ -10,7 +10,7 @@
                     {% csrf_token %}
 
                     {{ code_form|crispy }}
-                    <button type="submit" class="btn btn-outline-success shadow-sm">Отправить</button>
+                    <button type="submit" class="btn btn-outline-success shadow-sm" name="Send" value="Send">Отправить</button>
                 </form>
             </div>
         </div>

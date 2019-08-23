@@ -8,13 +8,12 @@
             <div class="row no-gutters border overflow-hidden flex-md-row mt-3 h-md-250 position-relative shadow-sm">
                 <div class="col p-3 d-flex flex-column position-static">
                     {% if user_1.is_superuser %}
-                    <strong class="d-inline-block mb-2 text-success">Superuser</strong>
+                    <strong class="d-inline-block text-success">Superuser</strong>
                     {% endif %}
                     <h4 class="mb-0">{{ user_1.first_name }} {{ user_1.last_name }}</h3>
                     {% if user_1.last_login %}
                     <div class="mb-1 text-muted">{{ user_1.last_login|date:"d.m.Y H:i" }}</div>
                     {% endif %}
-                    <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
                 </div>
 
                 <div class="col-auto d-none d-lg-block">

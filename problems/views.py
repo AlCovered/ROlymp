@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
+from users.models import Profile
 from .models import *
 from .forms import *
 import requests
@@ -30,6 +31,13 @@ class SendDecision(View):
     def post(self, request, some_id):
         code_form = CodeForm(request.POST)
         condition = Condition.objects.get(id=some_id)
+        user_id = int(request.user.id)
+        some_user = Profile.objects.get(id=user_id)
+        send_some = request.POST.get('Send')
+
+        if send_some == 'Send':
+            some_user.shipments += 1
+            some_user.save()
 
         if code_form.is_valid():
             code_language = code_form.cleaned_data['code_language']
