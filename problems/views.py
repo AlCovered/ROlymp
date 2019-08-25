@@ -20,6 +20,7 @@ def problem_itself(request, some_id):
     return render(request, 'problems/problem.html', context)
 
 
+global_list = {}
 class SendDecision(View):
     def get(self, request, some_id):
         code_form = CodeForm()
@@ -31,8 +32,7 @@ class SendDecision(View):
     def post(self, request, some_id):
         code_form = CodeForm(request.POST)
         condition = Condition.objects.get(id=some_id)
-        user_id = int(request.user.id)
-        some_user = Profile.objects.get(id=user_id)
+        some_user = Profile.objects.get(id=int(request.user.id))
         send_some = request.POST.get('Send')
 
         if send_some == 'Send':
@@ -52,14 +52,19 @@ class SendDecision(View):
             }
 
             response = requests.post(url, params=to_compile)
+            print(response.json())
+            global_list['warnings'] = response.json()['Warnings']
+            global_list['errors'] = response.json()['Errors']
+            global_list['stats'] = response.json()['Stats']
             result_of_program = response.json()['Result'].strip()
 
             if result_of_program == condition.answer:
-                return redirect('correct_answer_url')
+                return redirect('correct_answer_url', some_id=some_id)
             else:
-                return redirect('incorrect_answer_url')
+                return redirect('incorrect_answer_url', some_id=some_id)
 
-        context = {'title': 'Send Decision - RLOlymp', 'code_form': code_form}
+        context = {'title': 'S'
+                            'end Decision - RLOlymp', 'code_form': code_form}
         return render(request, 'problems/solve_send.html', context)
 
 
@@ -81,13 +86,15 @@ class CreateProblem(View):
         return render(request, 'problems/create_problem.html', context)
 
 
-def correct_answer(request):
+def correct_answer(request, some_id):
     context = {'title': 'Correct Answer - RLOlymp'}
+    print(global_list)
     return render(request, 'problems/correct_answer.html', context)
 
 
-def incorrect_answer(request):
+def incorrect_answer(request, some_id):
     context = {'title': 'Incorrect Answer - RLOlymp'}
+    print(global_list)
     return render(request, 'problems/incorrect_answer.html', context)
 
 
