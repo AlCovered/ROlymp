@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'crispy_forms',
+    'snowpenguin.django.recaptcha3',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -148,3 +149,8 @@ CSRF_COOKIE_SECURE = True
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
+
+RECAPTCHA_PRIVATE_KEY = '6LcS07QUAAAAAIcV3NEi4KbWzXIcKEIOuovMpt5B'
+RECAPTCHA_PUBLIC_KEY = '6LcS07QUAAAAAOeygfaHDwjQMqjKiei1g-T-64dg'
+RECAPTCHA_DEFAULT_ACTION = 'generic'
+RECAPTCHA_SCORE_THRESHOLD = 0.5

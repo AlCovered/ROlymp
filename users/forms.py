@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.core.exceptions import ValidationError
+from snowpenguin.django.recaptcha3.fields import ReCaptchaField
 
 from .models import *
 
@@ -46,3 +47,8 @@ class EditImageForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['photo']
+
+
+class ReCaptchaForm(forms.Form):
+    captcha = ReCaptchaField()
+
